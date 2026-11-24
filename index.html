@@ -1,0 +1,1104 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNITY | Your World of Answers</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --bg: #080b16;
+  --panel: #11172a;
+  --panel2: #171e34;
+  --purple: #8665ff;
+  --text: #f5f6ff;
+  --muted: #929bb4;
+  --border: rgba(255,255,255,.09);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* BACKGROUND */
+
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 50% 0%, #39246b55, transparent 55%),
+    radial-gradient(ellipse at 100% 100%, #172d5840, transparent 45%),
+    var(--bg);
+}
+
+/* STARTUP */
+
+#startup {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #080b16;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .7s, visibility .7s;
+}
+
+#startup.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.start-logo {
+  width: 95px;
+  height: 95px;
+  background: linear-gradient(135deg,#9c7aff,#5835d9);
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 57px;
+  font-weight: 900;
+  box-shadow: 0 0 70px #8158ff70;
+  animation: logoIn 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.start-title {
+  margin-top: 25px;
+  font-size: 37px;
+  font-weight: 900;
+  letter-spacing: 8px;
+}
+
+.start-sub {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 4px;
+}
+
+@keyframes logoIn {
+  from {transform: scale(.3) rotate(-30deg); opacity:0}
+  to {transform: scale(1) rotate(0); opacity:1}
+}
+
+/* LAYOUT */
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 265px;
+  background: rgba(10,14,27,.94);
+  border-right: 1px solid var(--border);
+  padding: 24px 17px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 9px 30px;
+}
+
+.brand-logo {
+  width: 39px;
+  height: 39px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,#a38aff,#6541eb);
+  display: grid;
+  place-items: center;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.brand-name {
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-size: 18px;
+}
+
+.brand-sub {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.section-label {
+  color: #6f7893;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  padding: 17px 11px 10px;
+}
+
+.nav-btn {
+  width: 100%;
+  padding: 13px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: #aab2c9;
+  border: none;
+  border-radius: 10px;
+  text-align: left;
+  font-size: 13px;
+  margin-bottom: 5px;
+  transition: .2s;
+}
+
+.nav-btn:hover, .nav-btn.active {
+  background: #8060ff1b;
+  color: #b9a6ff;
+}
+
+.nav-icon {
+  font-size: 17px;
+}
+
+.history-list {
+  overflow-y: auto;
+  max-height: 45vh;
+}
+
+.history-item {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  border: none;
+  background: transparent;
+  color: #9da7c0;
+  text-align: left;
+  border-radius: 8px;
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.history-item:hover {
+  background: var(--panel2);
+  color: white;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.status {
+  border: 1px solid var(--border);
+  background: #11182b;
+  padding: 12px;
+  border-radius: 11px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.status-dot {
+  color: #ffbd55;
+  margin-right: 6px;
+}
+
+/* MAIN */
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.topbar {
+  height: 75px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 35px;
+}
+
+.top-label {
+  color: #a9b1c9;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.top-right {
+  color: #a5afc7;
+  font-size: 11px;
+}
+
+.content {
+  max-width: 950px;
+  margin: auto;
+  padding: 55px 35px;
+}
+
+/* HOME */
+
+#home {
+  min-height: calc(100vh - 110px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-logo {
+  width: 62px;
+  height: 62px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#9879ff,#5835d9);
+  font-size: 39px;
+  font-weight: 900;
+  box-shadow: 0 0 50px #7550ff35;
+  margin-bottom: 27px;
+}
+
+.hero h1 {
+  font-size: clamp(40px,6vw,64px);
+  font-weight: 800;
+  letter-spacing: -3px;
+  text-align: center;
+}
+
+.hero h1 span {
+  color: #a38aff;
+}
+
+.hero p {
+  color: var(--muted);
+  margin-top: 17px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.search-box {
+  margin-top: 37px;
+  width: min(100%,690px);
+  background: #151b30;
+  border: 1px solid #343b5c;
+  border-radius: 19px;
+  padding: 15px;
+  box-shadow: 0 15px 60px #0004;
+  transition: .2s;
+}
+
+.search-box:focus-within {
+  border-color: #9578ff;
+  box-shadow: 0 0 30px #7754ff22;
+}
+
+.search-box textarea {
+  width: 100%;
+  resize: none;
+  min-height: 42px;
+  max-height: 140px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  font-size: 14px;
+  padding: 9px;
+}
+
+.search-box textarea::placeholder {
+  color: #747f9c;
+}
+
+.search-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 9px;
+}
+
+.search-hint {
+  color: #77819c;
+  font-size: 10px;
+}
+
+.send-btn {
+  width: 43px;
+  height: 43px;
+  border: none;
+  border-radius: 13px;
+  color: white;
+  background: linear-gradient(135deg,#a184ff,#7047ee);
+  font-size: 21px;
+  transition: .2s;
+}
+
+.send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px #8863ff60;
+}
+
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 23px;
+}
+
+.suggestion {
+  background: #11182a;
+  color: #abb4cd;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 10px 15px;
+  font-size: 11px;
+}
+
+.suggestion:hover {
+  border-color: #8d70ff;
+  color: white;
+}
+
+.hero-note {
+  color: #616c86;
+  font-size: 10px;
+  margin-top: 32px;
+}
+
+/* CHAT */
+
+#chat {
+  display: none;
+}
+
+.chat-heading {
+  margin-bottom: 30px;
+}
+
+.chat-heading h2 {
+  font-size: 25px;
+}
+
+.chat-heading p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.message {
+  margin: 22px 0;
+  padding: 18px;
+  border-radius: 15px;
+  line-height: 1.8;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.user-message {
+  background: #211c3d;
+  border: 1px solid #57458b;
+  margin-left: auto;
+  max-width: 85%;
+  white-space: pre-wrap;
+}
+
+.ai-message {
+  background: #121a2d;
+  border: 1px solid var(--border);
+}
+
+.ai-label {
+  color: #ac94ff;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.chat-search {
+  margin-top: 35px;
+}
+
+.loading {
+  color: #a58aff;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  50% {opacity:.35}
+}
+
+/* ABOUT */
+
+.info-page {
+  display: none;
+  padding-top: 35px;
+}
+
+.info-page h1 {
+  font-size: 36px;
+  margin-bottom: 15px;
+}
+
+.info-page > p {
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: 14px;
+  max-width: 750px;
+}
+
+.info-card {
+  background: #11182b;
+  border: 1px solid var(--border);
+  padding: 23px;
+  border-radius: 16px;
+  margin-top: 19px;
+}
+
+.info-card h3 {
+  color: #b59fff;
+  margin-bottom: 11px;
+  font-size: 15px;
+}
+
+.info-card p {
+  color: #aab3ca;
+  line-height: 1.8;
+  font-size: 13px;
+}
+
+/* MOBILE */
+
+@media(max-width:750px) {
+  .sidebar {
+    width: 65px;
+    padding: 17px 7px;
+  }
+
+  .brand {
+    justify-content: center;
+    padding: 5px 0 25px;
+  }
+
+  .brand-text, .section-label, .nav-text,
+  .history-list, .sidebar-bottom {
+    display: none;
+  }
+
+  .nav-btn {
+    justify-content: center;
+    padding: 14px 5px;
+  }
+
+  .topbar {
+    padding: 0 17px;
+  }
+
+  .content {
+    padding: 35px 17px;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- STARTUP -->
+
+<div id="startup">
+  <div class="start-logo">U</div>
+  <div class="start-title">UNITY</div>
+  <div class="start-sub">YOUR WORLD OF ANSWERS</div>
+</div>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+  <div class="brand">
+    <div class="brand-logo">U</div>
+    <div class="brand-text">
+      <div class="brand-name">UNITY</div>
+      <div class="brand-sub">AI KNOWLEDGE ENGINE</div>
+    </div>
+  </div>
+
+  <div class="section-label">WORKSPACE</div>
+
+  <button class="nav-btn active" onclick="showPage('home')">
+    <span class="nav-icon">⌂</span>
+    <span class="nav-text">New Question</span>
+  </button>
+
+  <button class="nav-btn" onclick="showPage('about')">
+    <span class="nav-icon">◎</span>
+    <span class="nav-text">About UNITY</span>
+  </button>
+
+  <button class="nav-btn" onclick="showPage('technology')">
+    <span class="nav-icon">⌘</span>
+    <span class="nav-text">Technology</span>
+  </button>
+
+  <button class="nav-btn" onclick="showPage('how')">
+    <span class="nav-icon">✧</span>
+    <span class="nav-text">How It Works</span>
+  </button>
+
+  <div class="section-label">SEARCH HISTORY</div>
+  <div id="history" class="history-list"></div>
+
+  <div class="sidebar-bottom">
+    <div class="status">
+      <span class="status-dot" id="statusDot">●</span>
+      <span id="statusText">AI MODEL NOT LOADED</span>
+    </div>
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+
+<main class="main">
+
+<header class="topbar">
+  <div class="top-label">UNITY / <span id="pageName">HOME</span></div>
+  <div class="top-right">✦ AI KNOWLEDGE ENGINE</div>
+</header>
+
+<div class="content">
+
+<!-- HOME -->
+
+<section id="home">
+
+  <div class="hero-logo">U</div>
+
+  <div class="hero">
+    <h1>Ask <span>away.</span></h1>
+    <p>
+      One question can open a world of knowledge.<br>
+      Discover. Explore. Understand.
+    </p>
+  </div>
+
+  <div class="search-box">
+    <textarea id="question"
+      placeholder="Ask UNITY anything..."
+      rows="1"></textarea>
+
+    <div class="search-actions">
+      <div class="search-hint">Press ENTER to ask · SHIFT + ENTER for a new line</div>
+      <button class="send-btn" onclick="askUnity()">↑</button>
+    </div>
+  </div>
+
+  <div class="suggestions">
+    <button class="suggestion" onclick="suggest('How does artificial intelligence work?')">✧ Artificial Intelligence</button>
+    <button class="suggestion" onclick="suggest('How does the universe work?')">◉ The Universe</button>
+    <button class="suggestion" onclick="suggest('How do computers understand code?')">⌘ Computer Science</button>
+  </div>
+
+  <div class="hero-note">UNITY AI · BUILT TO EXPLORE KNOWLEDGE</div>
+
+</section>
+
+<!-- CHAT -->
+
+<section id="chat">
+
+  <div class="chat-heading">
+    <h2>Your conversation</h2>
+    <p>UNITY is working on your question.</p>
+  </div>
+
+  <div id="messages"></div>
+
+  <div class="search-box chat-search">
+    <textarea id="followup"
+      placeholder="Ask another question..."
+      rows="1"></textarea>
+    <div class="search-actions">
+      <div class="search-hint">Continue your conversation</div>
+      <button class="send-btn" onclick="askUnity(true)">↑</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section class="info-page" id="about">
+  <h1>Meet UNITY.</h1>
+  <p>
+    UNITY is an AI-powered question-and-answer platform
+    designed to make knowledge easier to explore.
+    Its goal is to help people ask questions, understand
+    difficult subjects, and discover new information.
+  </p>
+
+  <div class="info-card">
+    <h3>Our Purpose</h3>
+    <p>
+      To make learning more accessible by allowing people
+      to ask questions and receive understandable,
+      helpful explanations.
+    </p>
+  </div>
+
+  <div class="info-card">
+    <h3>Our Mission</h3>
+    <p>
+      Encourage curiosity, support education, and make
+      technology easier to understand.
+    </p>
+  </div>
+
+  <div class="info-card">
+    <h3>Our Name</h3>
+    <p>
+      UNITY represents bringing questions, technology,
+      and knowledge together in one place.
+    </p>
+  </div>
+</section>
+
+<!-- TECHNOLOGY -->
+
+<section class="info-page" id="technology">
+  <h1>Behind the Technology.</h1>
+  <p>UNITY is built using several technologies that work together.</p>
+
+  <div class="info-card">
+    <h3>HTML — Structure</h3>
+    <p>
+      HTML stands for HyperText Markup Language.
+      It creates the structure of the website, including
+      the search bar, buttons, menus, and content sections.
+    </p>
+  </div>
+
+  <div class="info-card">
+    <h3>CSS — Design</h3>
+    <p>
+      CSS stands for Cascading Style Sheets.
+      It controls the website's colors, fonts, layouts,
+      animations, spacing, and appearance.
+    </p>
+  </div>
+
+  <div class="info-card">
+    <h3>JavaScript — Functionality</h3>
+    <p>
+      JavaScript makes UNITY interactive.
+      It processes user actions, manages conversations,
+      saves search history, and connects to the AI model.
+    </p>
+  </div>
+
+  <div class="info-card">
+    <h3>WebLLM — Artificial Intelligence</h3>
+    <p>
+      WebLLM runs compatible AI language models in
+      the browser using WebGPU. It generates answers
+      based on the user's questions and the model's training.
+    </p>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section class="info-page" id="how">
+  <h1>How UNITY Works.</h1>
+  <p>Four important steps turn a question into an answer.</p>
+
+  <div class="info-card">
+    <h3>01 — INPUT</h3>
+    <p>A user types a question into UNITY's search bar.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>02 — PROCESSING</h3>
+    <p>JavaScript sends the question to the AI model.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>03 — GENERATION</h3>
+    <p>The AI model processes the question and generates a response.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>04 — OUTPUT</h3>
+    <p>UNITY displays the generated answer to the user.</p>
+  </div>
+</section>
+
+</div>
+</main>
+</div>
+
+<script type="module">
+
+// UNITY AI ENGINE
+// WebLLM runs the AI model in the browser.
+
+import { CreateMLCEngine } from
+"https://esm.run/@mlc-ai/web-llm";
+
+const MODEL =
+"Qwen2.5-0.5B-Instruct-q4f16_1-MLC";
+
+let engine = null;
+let busy = false;
+let conversation = [];
+
+const question = document.getElementById("question");
+const followup = document.getElementById("followup");
+const messages = document.getElementById("messages");
+
+const savedHistory = JSON.parse(
+  localStorage.getItem("unity_history") || "[]"
+);
+
+function setStatus(text, color) {
+  document.getElementById("statusText").textContent = text;
+  document.getElementById("statusDot").style.color = color;
+}
+
+// START AI MODEL
+
+async function initializeAI() {
+
+  try {
+    setStatus("CHECKING WEBGPU...", "#ffbd55");
+
+    if (!navigator.gpu) {
+      throw new Error(
+        "WebGPU is not available in this browser."
+      );
+    }
+
+    setStatus("DOWNLOADING AI MODEL...", "#ffbd55");
+
+    engine = await CreateMLCEngine(MODEL, {
+      initProgressCallback: (progress) => {
+        console.log("UNITY MODEL:", progress.text);
+        setStatus("LOADING AI MODEL...", "#ffbd55");
+      }
+    });
+
+    setStatus("UNITY AI ONLINE", "#4ade80");
+
+    console.log("UNITY AI READY");
+
+  } catch (error) {
+
+    console.error(error);
+
+    setStatus("AI CONNECTION ERROR", "#ff6565");
+
+    console.error(
+      "UNITY could not load its AI model:",
+      error.message
+    );
+  }
+}
+
+// PAGE NAVIGATION
+
+window.showPage = function(page) {
+
+  document.querySelectorAll("#home, #chat, .info-page")
+    .forEach(element => {
+      element.style.display = "none";
+    });
+
+  document.getElementById(page).style.display =
+    page === "home" ? "flex" : "block";
+
+  document.querySelectorAll(".nav-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  const names = {
+    home: "HOME",
+    about: "ABOUT UNITY",
+    technology: "TECHNOLOGY",
+    how: "HOW IT WORKS"
+  };
+
+  document.getElementById("pageName").textContent =
+    names[page] || "HOME";
+
+  if (page === "home") {
+    document.querySelectorAll(".nav-btn")[0].classList.add("active");
+  }
+
+  const index = {
+    about: 1,
+    technology: 2,
+    how: 3
+  }[page];
+
+  if (index !== undefined) {
+    document.querySelectorAll(".nav-btn")[index]
+      .classList.add("active");
+  }
+};
+
+// SEARCH SUGGESTIONS
+
+window.suggest = function(value) {
+  question.value = value;
+  askUnity();
+};
+
+// SEARCH HISTORY
+
+function saveHistory(value) {
+
+  savedHistory.unshift(value);
+
+  const unique = [...new Set(savedHistory)].slice(0,30);
+
+  savedHistory.length = 0;
+  savedHistory.push(...unique);
+
+  localStorage.setItem(
+    "unity_history",
+    JSON.stringify(savedHistory)
+  );
+
+  renderHistory();
+}
+
+function renderHistory() {
+
+  const container = document.getElementById("history");
+
+  container.innerHTML = "";
+
+  savedHistory.forEach(item => {
+
+    const button = document.createElement("button");
+
+    button.className = "history-item";
+    button.textContent = "◷ " + item;
+
+    button.onclick = () => {
+      showPage("home");
+      question.value = item;
+      question.focus();
+    };
+
+    container.appendChild(button);
+
+  });
+}
+
+// DISPLAY MESSAGES
+
+function addMessage(text, type) {
+
+  const box = document.createElement("div");
+
+  box.className =
+    "message " +
+    (type === "user" ? "user-message" : "ai-message");
+
+  if (type === "ai") {
+
+    const label = document.createElement("div");
+    label.className = "ai-label";
+    label.textContent = "✦ UNITY AI";
+
+    const content = document.createElement("div");
+    content.textContent = text;
+
+    box.append(label, content);
+
+    messages.appendChild(box);
+
+    return content;
+  }
+
+  box.textContent = text;
+  messages.appendChild(box);
+
+  return null;
+}
+
+// ASK UNITY
+
+window.askUnity = async function(isFollowup = false) {
+
+  if (busy) return;
+
+  const input = isFollowup ? followup : question;
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  if (!engine) {
+    alert(
+      "UNITY is still loading its AI model. Please wait."
+    );
+    return;
+  }
+
+  busy = true;
+  input.value = "";
+
+  if (!isFollowup) {
+    conversation = [];
+    messages.innerHTML = "";
+    showPage("chat");
+  }
+
+  saveHistory(text);
+
+  addMessage(text, "user");
+
+  const answer = addMessage("", "ai");
+  answer.className = "loading";
+
+  conversation.push({
+    role: "user",
+    content: text
+  });
+
+  try {
+
+    const response = await engine.chat.completions.create({
+
+      messages: [
+        {
+          role: "system",
+          content:
+            "You are UNITY, a helpful, knowledgeable and friendly AI assistant. " +
+            "Your purpose is to help people learn, understand subjects, " +
+            "answer questions and explore ideas. Give accurate, clear, " +
+            "well-organized answers. Explain difficult concepts simply, " +
+            "especially for middle-school students. Never pretend to know " +
+            "something you do not know. Be honest about uncertainty. " +
+            "You are not connected to live internet search."
+        },
+        ...conversation.slice(-12)
+      ],
+
+      temperature: 0.65,
+      max_tokens: 500,
+      stream: true
+
+    });
+
+    answer.className = "";
+
+    let fullAnswer = "";
+
+    for await (const chunk of response) {
+
+      const token = chunk.choices?.[0]?.delta?.content || "";
+
+      fullAnswer += token;
+
+      answer.textContent = fullAnswer;
+
+    }
+
+    conversation.push({
+      role: "assistant",
+      content: fullAnswer
+    });
+
+    answer.scrollIntoView({
+      behavior: "smooth",
+      block: "end"
+    });
+
+  } catch (error) {
+
+    answer.className = "";
+    answer.textContent =
+      "UNITY encountered an error: " + error.message;
+
+    console.error(error);
+
+  }
+
+  busy = false;
+
+};
+
+// ENTER TO SEARCH
+
+question.addEventListener("keydown", event => {
+
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    askUnity();
+  }
+
+});
+
+followup.addEventListener("keydown", event => {
+
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    askUnity(true);
+  }
+
+});
+
+// STARTUP
+
+renderHistory();
+
+setTimeout(() => {
+  document.getElementById("startup").classList.add("hide");
+}, 1700);
+
+// LOAD AI
+initializeAI();
+
+</script>
+
+</body>
+</html>
