@@ -7,7 +7,7 @@
 // Replace this with your actual Render URL
 // after deploying the backend.
 
-const API_URL = "https://YOUR-UNITY-SERVER.onrender.com";
+const API_URL =  https://unity-1-0.onrender.com
 
 const questionInput = document.getElementById("question");
 const followupInput = document.getElementById("followup");
